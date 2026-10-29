@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { UsageLedger } from "./accounting.js";
+import { UsageLedger } from "../src/accounting.js";
 
 describe(UsageLedger, () => {
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildAuthorizeReply } from "./auth.js";
+import { buildAuthorizeReply } from "../src/auth.js";
 
 describe("buildAuthorizeReply", () => {
   it("should return an empty object when no attributes are provided", () => {

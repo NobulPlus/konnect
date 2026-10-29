@@ -25,23 +25,32 @@ export function verifyWebhook(
     return timingSafeEqual(expected, received);
 }
 
-export function splitAmount(
-    amountMinor: bigint,
-    operatorSharePercent: 80,
-){
-    if(amountMinor < 0n){
-        throw new Error('amountMinor must be non-negative');
-    }
 
-    if(
-        !Number.isInteger(operatorSharePercent) ||
-        operatorSharePercent < 0 ||
-        operatorSharePercent > 100
-    ){
-        throw new Error('operatorSharePercent must be an integer between 0 and 100');
-    }
+export function splitRevenue(
+  amountMinor: bigint,
+  operatorPercent = 80
+) {
+  if (amountMinor < 0n) {
+    throw new Error('Invalid amount');
+  }
 
-    const operatorShare = (amountMinor * BigInt(operatorSharePercent)) / 100n;
-    const providerShare = amountMinor - operatorShare;
-    return { operatorShare, providerShare };
+  if (
+    !Number.isInteger(operatorPercent) ||
+    operatorPercent < 0 ||
+    operatorPercent > 100
+  ) {
+    throw new Error('Invalid percentage');
+  }
+
+  const operatorAmount =
+    (amountMinor * BigInt(operatorPercent)) / 100n;
+
+  const platformAmount =
+    amountMinor - operatorAmount;
+
+  return {
+    operatorAmount,
+    platformAmount
+  };
 }
+
